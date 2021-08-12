@@ -1,5 +1,5 @@
 import socket
-from log import ( logger, Config)
+from log import ( logger, Config )
 
 class Client(object):
     
