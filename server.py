@@ -1,4 +1,6 @@
-from chatBox import ( socket, threading, logger, Config )
+import socket
+import threading
+from log import (logger, Config )
 
 class Server(object):
 
@@ -25,15 +27,15 @@ class Server(object):
 
         connected = True
         while connected:
-            msg_length: str = conn.recv(HEADER).decode(FORMAT)
+            msg_length: str = conn.recv(Server.HEADER).decode(Server.FORMAT)
             if msg_length:
                 msg_length: int = int(msg_length)
-                msg: str = conn.recv(msg_length).decode(FORMAT)
-                if msg == DISCONNECT:
+                msg: str = conn.recv(msg_length).decode(Server.FORMAT)
+                if msg == Server.DISCONNECT:
                     connected = False
 
                 logger.info(f"[{addr}] {msg}")
-                conn.send("Msg received".encode(FORMAT))
+                conn.send("Msg received".encode(Server.FORMAT))
 
         conn.close()
 
@@ -42,10 +44,10 @@ class Server(object):
         Server.x.listen()
         logger.info(f'[LISTENING] Server is listening on {Server.SERVER}')
         while True:
-            conn, addr = S.accept()
+            conn, addr = Server.x.accept()
             thread = threading.Thread(target=Server.handle_client, args=(conn, addr))
             thread.start()
-            logging.info(f'[ACTIVE CONNECTIONS] {threading.activeCount() - 1}')
+            logger.info(f'[ACTIVE CONNECTIONS] {threading.activeCount() - 1}')
 
 if __name__ == '__main__':
 

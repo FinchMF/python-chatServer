@@ -1,4 +1,4 @@
-from chatBox import ( socket )
+import socket
 
 class Config(object):
 

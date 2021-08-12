@@ -1,4 +1,5 @@
-from chatBox import ( socket, logging, Config )
+import socket
+from log import ( logger, Config)
 
 class Client(object):
     
@@ -14,27 +15,28 @@ class Client(object):
     @staticmethod
     def filterFormat(msg: str) -> tuple:
 
-        message = msg.encode(FORMAT)
+        message = msg.encode(Client.FORMAT)
         msg_length = len(message)
-        send_length = str(msg_length).encode(FORMAT)
-        send_length += b' ' * (HEADER - len(send_length))
+        send_length = str(msg_length).encode(Client.FORMAT)
+        send_length += b' ' * (Client.HEADER - len(send_length))
 
         return send_length, message
 
     @staticmethod
     def send(msg: str):
         send_length, message = Client.filterFormat(msg=msg)
-        x.send(send_length)
-        x.send(message)
-        logging.info(x.recv(2048).decode(FORMAT))
+        Client.x.send(send_length)
+        Client.x.send(message)
+        logger.info(Client.x.recv(2048).decode(Client.FORMAT))
 
 if __name__ == '__main__':
 
-    logging.info('W E L C O M E')
+    logger.info('W E L C O M E')
     x = True
     while x:
         msg = input()
         if msg == 'exit':
             Client.send(msg=Client.DISCONNECT)
+            x = False
         else:
             Client.send(msg=msg)

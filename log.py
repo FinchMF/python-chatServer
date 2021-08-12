@@ -7,8 +7,6 @@ simple chat server
 from __future__ import print_function
 # imports
 import logging
-import socket
-import threading
 import sys
 # logger
 logging.basicConfig(level=logging.INFO,
@@ -17,9 +15,7 @@ logging.basicConfig(level=logging.INFO,
                     stream=sys.stdout)
 logger = logging.getLogger('chatBox')
 
-from chatBox.cfg import Config
-from chatBox.server.server import Server
-from chatBox.client.client import Client
+from cfg import Config
 
 __author__ = 'Matthew Finch'
 __maintainer__ = 'Matthew Finch'
